@@ -1,6 +1,7 @@
 <?php
-include('include/header.php');
-include('include/connection.php');
+require('include/header.php');
+require('include/connection.php');
+
 $errorMessage = "";
 if(isset($_POST["login"])){
     if(!empty($_POST["email"]!=''&& $_POST["password"]!='')) {	

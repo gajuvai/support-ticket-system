@@ -20,7 +20,7 @@ include('include/connection.php');
 					<h3 class="panel-title"></h3>
 				</div>
 				<div class="col-md-2" align="right">
-					<button type="button" name="add" id="createTicket" class="btn btn-success btn-xs">Create Ticket</button>
+					<button type="button" name="add" id="createModal" class="btn btn-success btn-xs">Create Ticket</button>
 				</div>
 			</div>
 		</div>
@@ -36,7 +36,19 @@ include('include/connection.php');
 					<th></th>					
 				</tr>
 			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>there some issues</td>
+					<td>i d k</td>
+					<td><span class="label label-success">Open</span></td>
+					<td><a href="#" class="btn btn-success btn-xs update">View Ticket</a></td>
+					<td><button type="button" name="update" id="" class="btn btn-warning btn-xs update">Edit</button></td>
+					<td><button type="button" name="delete" id="" class="btn btn-danger btn-xs delete">Close</button></td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
+	<?php include('add-ticket.php'); ?>	
 </div>	
 <?php include('include/footer.php');?>

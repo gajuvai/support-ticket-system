@@ -10,4 +10,5 @@
 <link rel="stylesheet" href="assets/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
 
+    <script src="assets/js/main.js"></script>
 <!-- jQuery -->

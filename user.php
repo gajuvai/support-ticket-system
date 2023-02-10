@@ -15,7 +15,7 @@ include('include/header.php');
 				<h3 class="panel-title"></h3>
 			</div>
 			<div class="col-md-2" align="right">
-				<button type="button" name="add" id="addUser" class="btn btn-success btn-xs">Add New</button>
+				<button type="button" name="add" id="createModal" class="btn btn-success btn-xs">Add User</button>
 			</div>
 		</div>
 	</div>
@@ -26,14 +26,24 @@ include('include/header.php');
 				<th>S/N</th>
 				<th>Name</th>					
 				<th>Email</th>
-				<th>Created</th>
 				<th>Role</th>
 				<th>Status</th>
 				<th></th>
 				<th></th>				
 			</tr>
 		</thead>
+		<tbody>
+		<tr>
+				<ts>1</ts>
+				<td>Admin</td>					
+				<td>admin@support.com</td>
+				<td><span class="label label-danger">SuperAdmin</span></td>
+				<td><span class="label label-success">Active</span></td>
+				<td><button type="button" name="update" id="" class="btn btn-warning btn-xs update">Edit</button></td>
+				<td><button type="button" name="update" id="" class="btn btn-danger btn-xs delete">Delete</button></td>				
+			</tr>
+        </tbody>
 	</table>
-	
+	<?php include('add-user.php');?>
 </div>	
 <?php include('include/footer.php');?>
