@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('include/header.php');
 require('include/connection.php');
 
@@ -12,20 +13,20 @@ if(isset($_POST["login"])){
     $sqlQuery = "SELECT * FROM ss_users WHERE user_email='$email' AND password='$password' AND user_status = 'Active'";
 	$resultSet = mysqli_query($conn, $sqlQuery);
 	$isValidLogin = mysqli_num_rows($resultSet);	
-	if($isValidLogin){
-		$userDetails = mysqli_fetch_assoc($resultSet);
-		$_SESSION["userid"] = $userDetails['user_id'];
-		$_SESSION["user_name"] = $userDetails['username'];
-		$_SESSION['user_type'] == $userDetails['user_role'];
-		
-		header("location: ticket.php"); 		
-		
-	} else {		
-			$errorMessage = "Invalid login!";		 
-		}
-}else{
-    $errorMessage = "Enter Both user and password!";	
-}
+		if($isValidLogin){
+			$userDetails = mysqli_fetch_assoc($resultSet);
+			$_SESSION["userid"] = $userDetails['user_id'];
+			$_SESSION["name"] = 'admin';
+			$_SESSION["user_type"] == $userDetails['user_role'];
+			
+			header("location: ticket.php"); 		
+			
+		} else {		
+				$errorMessage = "Invalid login!";		 
+			}
+	}else{
+		$errorMessage = "Enter Both user and password!";	
+	}
 }
 ?>
 

@@ -1,37 +1,37 @@
-$(document).ready(function() {     	
-	$('#createModal').click(function(){
-		$('#Modal').modal('show');
-		$('#modalForm')[0].reset();
-		$('.modal-title').html("<i class='fa fa-plus'></i> Create Ticket");
-		$('#action').val('createModa');
-		$('#save').val('Save Ticket');
-	});
-});
-// //  * Modal popup
-// // Get the modal
-// var modal = $('#modalDialog');
-
-// // Get the button that opens the modal
-// var btn = $("#mbtn");
-
-// // Get the  element that closes the modal
-// var span = $(".close");
-
-// $(document).ready(function(){
-//     // When the user clicks the button, open the modal 
-//     btn.on('click', function() {
-//         modal.show();
-//     });
+$(document).ready(function () {
     
-//     // When the user clicks on  (x), close the modal
-//     // span.on('click', function() {
-//     //     modal.hide();
-//     // });
-// });
+    $('.edituserbtn').on('click', function () {
 
-// // When the user clicks anywhere outside of the modal, close it
-// $('body').bind('click', function(e){
-//     if($(e.target).hasClass("modal")){
-//         modal.hide();
-//     }
-// });
+        $('#editusermodal').modal('show');
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
+
+        $('#edit_userid').val(data[0]);
+        $('#edit_userName').val(data[1]);
+        $('#edit_email').val(data[2]);
+        $(`#edit_role > option[value=${data[3]}]`).attr('selected', true);
+        $(`#edit_status > option[value=${data[4]}]`).attr('selected', true);
+        
+       
+    });
+
+
+    $('.deleteuserbtn').on('click', function () {
+
+        $('#deleteusermodal').modal('show');
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function () {
+            return $(this).text();
+        }).get();
+
+        $('#delete_id').val(data[0]);
+        
+    });
+
+});

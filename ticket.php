@@ -4,6 +4,47 @@ include('include/header.php');
 include('include/connection.php');
 
 ?>
+<!-- add ticket modal  -->
+		<div id="addticketmodal" class="modal fade">
+			<div class="modal-dialog">
+				<form method="post">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><i class="fa fa-plus"></i>Add Ticket</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="subject" class="control-label">Title</label>
+								<input type="text" class="form-control" id="title" name="title" placeholder="Subject" required>			
+							</div>						
+							<div class="form-group">
+								<label for="message" class="control-label">Description</label>							
+								<textarea class="form-control" rows="5" id="description" name="description"></textarea>							
+							</div>
+							<div class="form-group">
+								<label for="subject" class="control-label">Attachments</label>
+								<input type="file" class="form-control" id="img" name="img" placeholder="Subject" required>			
+							</div>	
+							<div class="form-group">
+								<label for="status" class="control-label">Status</label>							
+								<label class="radio-inline">
+									<input type="radio" name="status" id="open" value="0" checked required>Open
+								</label>
+									<label class="radio-inline">
+										<input type="radio" name="status" id="close" value="1" required>Close
+									</label>	
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" name="save" id="save" class="btn btn-info" value="Save" />
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+<!-- end add ticket modal  -->
 <title>Support Ticket System with PHP & MySQL</title>>
 <?php include('include/container.php');?>
 <div class="container">	
@@ -20,7 +61,7 @@ include('include/connection.php');
 					<h3 class="panel-title"></h3>
 				</div>
 				<div class="col-md-2" align="right">
-					<button type="button" name="add" id="createModal" class="btn btn-success btn-xs">Create Ticket</button>
+					<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#addticketmodal">Create Ticket</button>
 				</div>
 			</div>
 		</div>
@@ -31,9 +72,8 @@ include('include/connection.php');
 					<th>Name</th>
 					<th>Description</th>
 					<th>Status</th>
-					<th></th>
-					<th></th>
-					<th></th>					
+					<th>Comments</th>
+					<th>Operations</th>				
 				</tr>
 			</thead>
 			<tbody>
@@ -42,13 +82,12 @@ include('include/connection.php');
 					<td>there some issues</td>
 					<td>i d k</td>
 					<td><span class="label label-success">Open</span></td>
-					<td><a href="#" class="btn btn-success btn-xs update">View Ticket</a></td>
-					<td><button type="button" name="update" id="" class="btn btn-warning btn-xs update">Edit</button></td>
-					<td><button type="button" name="delete" id="" class="btn btn-danger btn-xs delete">Close</button></td>
+					<td><a href="#" class="btn btn-success btn-xs update">ADD</a></td>
+					<td><button type="button" name="update" id="" class="btn btn-info btn-xs update">EDIT</button>
+					<button type="button" name="delete" id="" class="btn btn-danger btn-xs delete">CLOSE</button></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<?php include('add-ticket.php'); ?>	
 </div>	
 <?php include('include/footer.php');?>
