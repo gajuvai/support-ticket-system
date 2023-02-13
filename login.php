@@ -1,5 +1,4 @@
 <?php
-session_start();
 require('include/header.php');
 require('include/connection.php');
 
@@ -10,16 +9,23 @@ if(isset($_POST["login"])){
     $password = $_POST['password'];
 
     // INSERT INTO `ss_users`(`user_id`, `username`, `user_email`, `password`, `user_status`, `user_role`)
-    $sqlQuery = "SELECT * FROM ss_users WHERE user_email='$email' AND password='$password' AND user_status = 'Active'";
+    $sqlQuery = "SELECT * FROM ss_users WHERE user_email='$email' AND password='$password'";
 	$resultSet = mysqli_query($conn, $sqlQuery);
-	$isValidLogin = mysqli_num_rows($resultSet);	
+	$isValidLogin = mysqli_num_rows($resultSet);
+	$userDetails = mysqli_fetch_assoc($resultSet);
+
 		if($isValidLogin){
-			$userDetails = mysqli_fetch_assoc($resultSet);
-			$_SESSION["userid"] = $userDetails['user_id'];
-			$_SESSION["name"] = 'admin';
-			$_SESSION["user_type"] == $userDetails['user_role'];
-			
-			header("location: ticket.php"); 		
+			if($userDetails['user_status'] == 'Active'){
+				$_SESSION["userid"] = $userDetails['user_id'];
+				$_SESSION["name"] = $userDetails['username'];
+				$_SESSION["usertype"] = $userDetails['user_role'];
+				
+				// $errorMessage = $_SESSION["usertype"];	
+				header("location: ticket.php"); 
+			}else{
+				$errorMessage = "This User is blocked! contact Admin";	
+			}
+					
 			
 		} else {		
 				$errorMessage = "Invalid login!";		 

@@ -3,6 +3,7 @@ include('include/header.php');
 include('include/connection.php');
 ?>
 <script src="assets/js/main.js"></script>
+
 <!-- add user modal  -->
 	<div id="addusermodal" class="modal fade">
 		<div class="modal-dialog">
@@ -46,7 +47,6 @@ include('include/connection.php');
 		</div>
 	</div>
 <!-- end add user data  -->
-
 <!-- edit user modal  -->
 	<div id="editusermodal" class="modal fade">
 		<div class="modal-dialog">
@@ -72,7 +72,7 @@ include('include/connection.php');
 						<div class="form-group">
 							<label for="status" class="control-label">Role</label>				
 							<select name="role" id="edit_role" class="form-control">
-							<option  value="SuperAdmin" select>SuperAdmin</option>				
+							<option  value="SuperAdmin">SuperAdmin</option>				
 							<option  value="GeneralUser">GeneralUser</option>	
 							</select>						
 						</div>	
@@ -100,7 +100,6 @@ include('include/connection.php');
 		</div>
 	</div>
 <!-- end edit user data  -->
-
 <!-- delete user modal  -->
    <div id="deleteusermodal" class="modal fade">
 		<div class="modal-dialog">
@@ -120,6 +119,7 @@ include('include/connection.php');
 		</div>
 	</div>
 <!-- end delete user modal  -->
+
 <title>Support Ticket System with PHP & MySQL</title>
 <?php include('include/container.php');?>
 <div class="container">	
@@ -130,20 +130,8 @@ include('include/connection.php');
 	
 	<div class="panel-heading">
 		<div class="row">
-			<div class="col-md-10">
-					<?php 
-					    if(isset($_SESSION['message']) && $_SESSION['message']!=''){
-						?>
-                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-							<strong>Hey!</strong><?php echo $_SESSION['message']; ?>
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						</div>
-					<?php
-					    unset($_SESSION['message']);
-						}
-					?>
-			</div>
-			<div class="col-md-2" align="right">
+			
+			<div class="col-md-12" align="right">
 				<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#addusermodal">Add User</button>
 			</div>
 		</div>
@@ -157,7 +145,7 @@ include('include/connection.php');
 				<th>Email</th>
 				<th>Role</th>
 				<th>Status</th>
-				<th>Operations</th>				
+				<th></th>				
 			</tr>
 		</thead>
 
@@ -172,22 +160,23 @@ include('include/connection.php');
 		?>
 				<tbody>
 					<tr>
-						<td class="userId"> <?php echo $row['user_id'];?> </td>
+						<td style="display:none;" class="userId"> <?php echo $row['user_id'];?> </td>
+						<td><?php echo $sn?></td>
 						<td> <?php echo $row['username']; ?> </td>
 						<td> <?php echo $row['user_email']; ?> </td>
 						<td> <?php echo $row['user_role']; ?> </td>
 						<td> <?php if($row['user_status'] == 'Active'){echo "<span class='label label-success'>Active</span>";}else{echo "<span class='label label-danger'>Deactive</span>";} ?> </td>
 						<td>
-							<button type="button" class="btn btn-info btn-xs edituserbtn"> EDIT </button>
-							<button type="button" class="btn btn-danger btn-xs deleteuserbtn"> DELETE </button>
+							<button type="button" class="btn btn-info btn-xs edituserbtn">Edit</button>
+							<button type="button" class="btn btn-danger btn-xs deleteuserbtn">Delete</button>
 						</td>
 					</tr>
 				<?php  
 				$sn++;         
 			}
 		}
-		else 
-		{ ?>
+		
+		if($sn == 1){ ?>
 			<tr><td colspan="7">No Such a user available.</td></tr>
 		<?php }
 		?>
