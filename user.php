@@ -69,26 +69,31 @@ include('include/connection.php');
 							<input type="email" class="form-control" id="edit_email" name="email" placeholder="Email" required>			
 						</div>
 						
-						<div class="form-group">
-							<label for="status" class="control-label">Role</label>				
-							<select name="role" id="edit_role" class="form-control">
-							<option  value="SuperAdmin">SuperAdmin</option>				
-							<option  value="GeneralUser">GeneralUser</option>	
-							</select>						
-						</div>	
+							<div class="form-group">
+								<label for="status" class="control-label">Role</label>				
+								<select name="role" id="edit_role" class="form-control">
+
+								<?php if($_SESSION["usertype"] == 'SuperAdmin'){
+									echo "<option  value='SuperAdmin'>SuperAdmin</option>";}?>		
+								<option  value="GeneralUser">GeneralUser</option>	
+								</select>						
+							</div>	
 						
 						<div class="form-group">
 							<label for="status" class="control-label">Status</label>				
 							<select id="edit_status" name="status" class="form-control">
-							<option value="Active">Active</option>				
-							<option value="Deactive">Deactive</option>	
+							<option value="Active">Active</option>
+
+							<?php if($_SESSION["usertype"] == 'SuperAdmin'){				
+							echo"<option value='Deactive'>Deactive</option>";	}?>
 							</select>						
 						</div>
 
-						<!-- <div class="form-group">
-							<label for="username" class="control-label">New Password</label>
-							<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Password" required>			
-						</div>											 -->
+						<?php if($_SESSION["usertype"] == 'GeneralUser'){
+						echo "<div class='form-group'>
+							<label for='username' class='control-label'>New Password</label>
+							<input type='password' class='form-control' id='newPassword' name='newPassword' placeholder='Password' required>			
+						</div>";}?>
 						
 					</div>
 					<div class="modal-footer">
@@ -127,15 +132,16 @@ include('include/connection.php');
 	<h2>Support Ticket System</h2>	
 	<?php include('menu.php'); ?>		
 	</div> 
-	
-	<div class="panel-heading">
-		<div class="row">
+	<?php if($_SESSION["usertype"] == 'SuperAdmin'){
+	echo "<div class='panel-heading'>
+		<div class='row'>
 			
-			<div class="col-md-12" align="right">
-				<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#addusermodal">Add User</button>
+			<div class='col-md-12' align='right'>
+				<button type='button' class='btn btn-success btn-xs' data-toggle='modal' data-target='#addusermodal'>Add User</button>
 			</div>
 		</div>
-	</div>
+	</div>";
+	}?>
 			
 	<table id="listUser" class="table table-bordered table-striped">
 		<thead>
@@ -150,14 +156,20 @@ include('include/connection.php');
 		</thead>
 
 		<!-- // displying user on dashboard  -->
-		<?php $query = "SELECT * FROM `ss_users`";
+		<?php
+		if($_SESSION["usertype"] == 'SuperAdmin'){
+			$query = "SELECT * FROM `ss_users`";
+		}else{
+			$name = $_SESSION["name"];
+			$query = "SELECT * FROM `ss_users` WHERE `username`='$name'";
+		}
 		$query_run = mysqli_query($conn, $query);
 		$sn = 1;
 		if($query_run)
 		{
 			foreach($query_run as $row)
 			{
-		?>
+		?> 
 				<tbody>
 					<tr>
 						<td style="display:none;" class="userId"> <?php echo $row['user_id'];?> </td>
@@ -168,7 +180,7 @@ include('include/connection.php');
 						<td> <?php if($row['user_status'] == 'Active'){echo "<span class='label label-success'>Active</span>";}else{echo "<span class='label label-danger'>Deactive</span>";} ?> </td>
 						<td>
 							<button type="button" class="btn btn-info btn-xs edituserbtn">Edit</button>
-							<button type="button" class="btn btn-danger btn-xs deleteuserbtn">Delete</button>
+							<button type="button" class="btn btn-danger btn-xs deleteuserbtn" <?php if($_SESSION["usertype"] == 'GeneralUser'){echo "disabled";}?>>Delete</button>
 						</td>
 					</tr>
 				<?php  

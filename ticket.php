@@ -141,7 +141,7 @@ include('include/connection.php');
 			
 			<!-- // displying ticket on dashboard  -->
 			<?php 
-			if($_SESSION["usertype"] == 'Admin'){
+			if($_SESSION["usertype"] == 'SuperAdmin'){
 				$query = "SELECT * FROM `ss_tickets`";
 			}else{
 				$name = $_SESSION["name"];

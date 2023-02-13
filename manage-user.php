@@ -35,9 +35,9 @@ if(isset($_POST['edittuser']))
     $email = $_POST['email'];
     $role = $_POST['role'];
     $status = $_POST['status'];
-    // $password = $_POST['newPassword'];
+    $password = $_POST['newPassword'];
 
-    $query = "UPDATE `ss_users` SET `username`='$username',`user_email`='$email', `user_status`='$status',`user_role`='$role' WHERE `user_id`='$userid'";
+    $query = "UPDATE `ss_users` SET `username`='$username',`user_email`='$email', `user_status`='$status',`user_role`='$role' `password`='$password' WHERE `user_id`='$userid'";
     $query_run = mysqli_query($conn, $query);
 
     if($query_run)

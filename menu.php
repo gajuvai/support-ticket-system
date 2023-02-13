@@ -8,9 +8,11 @@
 			<?php
 			$role = $_SESSION["usertype"];
 			// echo $role;
-			if($role == 'Admin'){
+			if($role == 'SuperAdmin'){
 				echo "<li id='department'><a href='customer.php' >Customer</a></li>
 						<li id='user'><a href='user.php' >Users</a></li>";
+			}else{
+				echo "<li id='user'><a href='user.php' >My Profile</a></li>"; 
 			}?>										
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
