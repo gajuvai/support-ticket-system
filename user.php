@@ -146,7 +146,7 @@ include('include/connection.php');
 	<table id="listUser" class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th>ID</th>
+				<th>SN</th>
 				<th>Name</th>					
 				<th>Email</th>
 				<th>Role</th>

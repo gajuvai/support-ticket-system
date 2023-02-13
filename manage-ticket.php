@@ -70,4 +70,26 @@ if(isset($_POST['closedata']))
     }
 }
 
+if(isset($_POST['reply'])){
+    $user = $_SESSION["name"];
+    $comment = $_POST['message'];
+    $ticket_id = $_POST['tid'];
+
+    $query = "INSERT INTO `ss_comments`(`comment`, `comment_by`, `comment_on`, `t_id`) VALUES ('$comment','$user', NOW(),'$ticket_id')";
+    $query_run = mysqli_query($conn, $query);
+    if($query_run)
+    {
+        header("Location: ticket.php");
+        // echo $_SERVER[HTTP_REFERER]; 
+        
+    }
+    else
+    {
+        header('Location: ticket.php');
+    }
+    // echo "hi";
+   }
+
 ?>
+
+

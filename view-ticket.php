@@ -3,11 +3,7 @@
 include('include/header.php');
 include('include/connection.php');
 
-  $ticket_id =  $_GET['ticketId'];
-
-$query = "SELECT * FROM `ss_tickets` WHERE `id`='$ticket_id'";
-$query_run = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($query_run);
+$ticket_id  = $_GET['ticketId'];
 
 ?>
 
@@ -26,7 +22,12 @@ $row = mysqli_fetch_assoc($query_run);
 				<div class="panel panel-default arrow left">
 					<div class="panel-heading right">
 
-                    <?php if($row['status']=="Open"){
+                    <?php
+					$query = "SELECT * FROM `ss_tickets` WHERE `id`='$ticket_id'";
+					$query_run = mysqli_query($conn, $query);
+					$row = mysqli_fetch_assoc($query_run);
+					
+					if($row['status']=="Open"){
 					   echo "<button type='button' class='btn btn-success btn-sm'>
 					        <span class='glyphicon glyphicon-eye-open'></span> Open
 					    </button>";
@@ -82,38 +83,25 @@ $row = mysqli_fetch_assoc($query_run);
                 </article>
 		         <?php }
                 }?>
-         <?php
-             if(isset($_POST['reply'])){
-                
-                $user = $_SESSION["name"];
-                $comment = $_POST['message'];
-                $query = "INSERT INTO `ss_comments`(`comment`, `comment_by`, `comment_on`, `t_id`) VALUES ('$comment','$user', NOW(),'$ticket_id')";
-                $query_run = mysqli_query($conn, $query);
-
-                // if(!isset($ticket_id)){
-                     header('Location: view-ticket.php?ticketId={$ticket_id}');
-                     ob_end_flush();
-                // }
-                //     header('Location: view-ticket.php');
-            }
-         ?>       
-		<form method="post">
+              
+		<form method="post" action="manage-ticket.php">
 			<article class="row">
 				<div class="col-md-10 col-sm-10">				
 					<div class="form-group">							
 						<textarea class="form-control" rows="5" name="message" placeholder="Enter your reply..." required></textarea>	
 					</div>				
-			</div>
+				</div>
 			</article>  
 			<article class="row">
 				<div class="col-md-10 col-sm-10">
 					<div class="form-group">							
-						<input type="submit" name="reply" id="reply" class="btn btn-success" value="Reply" />		
+						<button name="reply" class="btn btn-success">Post</button>		
 					</div>
 				</div>
 			</article> 	
-			<input type="hidden" name="action" id="action" value="saveTicketReplies" />			
+			<input type="hidden" name="tid"  value="<?php echo $ticket_id; ?>" />			
 		</form>
+
 	</section>
 </div>
 
